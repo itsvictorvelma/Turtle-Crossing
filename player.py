@@ -13,6 +13,8 @@ class Player(Turtle):
         self.shape("turtle")
         self.penup()
         self.color("orange")
+        self.setheading(90)
+        self.goto(0, (-300 + PLAYER_HEIGHT))
 
     def move_up(self):
         if self.ycor() < (300 - PLAYER_HEIGHT):

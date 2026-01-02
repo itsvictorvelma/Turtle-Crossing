@@ -14,7 +14,6 @@ screen.bgcolor("black")
 screen.tracer(0)
 
 # Disable window resizing (keeps collision math from drifting)
-# test
 
 canvas = screen.getcanvas()
 root = canvas.winfo_toplevel()
@@ -26,7 +25,7 @@ player = Player()
 
 # CarManager
 
-car = CarManager()
+car_manager = CarManager()
 
 # MOVEMENT
 
@@ -50,6 +49,9 @@ def game_loop():
     if not game_is_on:
         return
 
+    car_manager.create_car()
+    car_manager.move_cars()
+
     if input_state.keys["Up"]:
         player.move_up()
 
@@ -61,6 +63,8 @@ def game_loop():
 
     if input_state.keys["Left"]:
         player.move_left()
+
+    # Detect car collision
 
     screen.update()
     screen.ontimer(game_loop, 16)
