@@ -14,6 +14,7 @@ screen.bgcolor("black")
 screen.tracer(0)
 
 # Disable window resizing (keeps collision math from drifting)
+# test
 
 canvas = screen.getcanvas()
 root = canvas.winfo_toplevel()
