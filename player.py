@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 STARTING_POSITION = (0, 280)
-MOVE_DISTANCE = 10
+MOVE_DISTANCE = 6
 FINISH_LINE_Y = 280
 PLAYER_HEIGHT = 20
 PLAYER_WIDTH = 20
@@ -11,10 +11,11 @@ class Player(Turtle):
     def __init__(self):
         super().__init__()
         self.shape("turtle")
+        self.shapesize(stretch_len=0.7, stretch_wid=0.7)
         self.penup()
-        self.color("orange")
+        self.color("white")
         self.setheading(90)
-        self.goto(0, (-300 + PLAYER_HEIGHT))
+        self.go_to_start()
 
     def move_up(self):
         if self.ycor() < (300 - PLAYER_HEIGHT):
@@ -26,12 +27,12 @@ class Player(Turtle):
             self.setheading(270)
             self.forward(MOVE_DISTANCE)
 
-    def move_right(self):
-        if self.xcor() < (300 - PLAYER_WIDTH):
-            self.setheading(0)
-            self.forward(MOVE_DISTANCE)
+    def is_at_finish_line(self):
+        if self.ycor() >= 300 - PLAYER_HEIGHT:
+            return True
 
-    def move_left(self):
-        if self.xcor() > (-300 + PLAYER_WIDTH):
-            self.setheading(180)
-            self.forward(MOVE_DISTANCE)
+        else:
+            return False
+
+    def go_to_start(self):
+        self.goto(0, -300 + PLAYER_HEIGHT)

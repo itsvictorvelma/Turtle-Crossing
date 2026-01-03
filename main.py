@@ -31,7 +31,7 @@ car_manager = CarManager()
 
 input_state = InputState()
 
-KEYS = ["Up", "Down", "Left", "Right"]
+KEYS = ["Up", "Down"]
 
 for key in KEYS:
     input_state.keys[key] = False
@@ -49,22 +49,25 @@ def game_loop():
     if not game_is_on:
         return
 
-    car_manager.create_car()
-    car_manager.move_cars()
-
     if input_state.keys["Up"]:
         player.move_up()
 
     if input_state.keys["Down"]:
         player.move_down()
 
-    if input_state.keys["Right"]:
-        player.move_right()
-
-    if input_state.keys["Left"]:
-        player.move_left()
+    car_manager.create_car()
+    car_manager.move_cars()
 
     # Detect car collision
+
+    for car in car_manager.all_cars:
+        if car.distance(player) < 17:
+            game_is_on = False
+
+    # Detect successful crossing
+    if player.is_at_finish_line():
+        player.go_to_start()
+        car_manager.level_up()
 
     screen.update()
     screen.ontimer(game_loop, 16)
